@@ -53,23 +53,9 @@ public class Gun : MonoBehaviour
     private IEnumerator Shooting()
     {
         _isReadyToShoot = false;
-        float screenCenter = 0.5f;
-        float distance = 75f;
-
-        Ray ray = _camera.ViewportPointToRay(new Vector3(screenCenter, screenCenter, screenCenter));
-        RaycastHit hit;
-        Vector3 targetPoint;
-
-        if (Physics.Raycast(ray, out hit))
-            targetPoint = hit.point;
-        else
-            targetPoint = ray.GetPoint(distance);
-
-        Vector3 directionWithoutSpread = targetPoint - _attackPoint.position;
 
         var currentBullet = Instantiate(_bulletPrefab, _attackPoint.position, Quaternion.identity);
-        currentBullet.transform.forward = directionWithoutSpread.normalized;
-        currentBullet.GetComponent<Rigidbody>().AddForce(directionWithoutSpread.normalized * _shootForce, ForceMode.Impulse);
+        currentBullet.GetComponent<Rigidbody>().AddForce(_attackPoint.forward * _shootForce, ForceMode.Impulse);
 
         if (_muzzleFlash != null)
             Instantiate(_muzzleFlash, _attackPoint);
