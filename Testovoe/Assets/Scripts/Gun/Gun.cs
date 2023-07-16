@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class Gun : MonoBehaviour
@@ -7,20 +8,19 @@ public class Gun : MonoBehaviour
     [SerializeField] private float _shootForce;
     [SerializeField] private float _timeBetweenShooting;
     [SerializeField] private float _reloadTime;
-    [SerializeField] private float _shootSpread;
     [SerializeField] private int _magazineSize;
     [SerializeField] private Camera _camera;
     [SerializeField] private Transform _attackPoint;
+    [SerializeField] private GameObject _muzzleFlash;
+    [SerializeField] private TMP_Text _muzzleText;
 
     private int _bulletsLeft;
     private int _bulletsShot;
 
-    private float _spread;
-
     private bool _isReadyToShoot;
     private bool _isReloading;
     private bool _isShooting;
-    private bool _allowButtonHold;
+    private bool _allowButtonHold = true;
 
     private void Awake()
     {
@@ -31,49 +31,64 @@ public class Gun : MonoBehaviour
     private void Update()
     {
         if (_allowButtonHold)
-            _isShooting = Input.GetMouseButtonDown(0);
+            _isShooting = Input.GetMouseButton(0);
         else
             _isShooting = Input.GetMouseButtonDown(0);
 
-        if(_isReadyToShoot && _isShooting && !_isReloading && _bulletsLeft > 0)
+        if (Input.GetKeyDown(KeyCode.R) && _bulletsLeft < _magazineSize && !_isReloading)
+            StartCoroutine(ReloadRoutine());
+
+        if (_isReadyToShoot && _isShooting && !_isReloading && _bulletsLeft <= 0)
+            StartCoroutine(ReloadRoutine());
+
+        if (_isReadyToShoot && _isShooting && !_isReloading && _bulletsLeft > 0)
         {
             _bulletsShot = 0;
-            Shoot();
+            StartCoroutine(Shooting());
         }
+
+        _muzzleText.text = _bulletsLeft.ToString();
     }
 
-    private void Shoot()
+    private IEnumerator Shooting()
     {
         _isReadyToShoot = false;
+        float screenCenter = 0.5f;
+        float distance = 75f;
 
-        Ray ray = _camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.5f));
+        Ray ray = _camera.ViewportPointToRay(new Vector3(screenCenter, screenCenter, screenCenter));
         RaycastHit hit;
         Vector3 targetPoint;
 
         if (Physics.Raycast(ray, out hit))
             targetPoint = hit.point;
         else
-            targetPoint = ray.GetPoint(75);
+            targetPoint = ray.GetPoint(distance);
 
         Vector3 directionWithoutSpread = targetPoint - _attackPoint.position;
 
-        float xSpread = Random.Range(-_spread, _spread);
-        float ySpread = Random.Range(-_spread, _spread);
+        var currentBullet = Instantiate(_bulletPrefab, _attackPoint.position, Quaternion.identity);
+        currentBullet.transform.forward = directionWithoutSpread.normalized;
+        currentBullet.GetComponent<Rigidbody>().AddForce(directionWithoutSpread.normalized * _shootForce, ForceMode.Impulse);
 
-        Vector3 directionWithSpread = directionWithoutSpread + new Vector3(xSpread, ySpread, 0);
+        if (_muzzleFlash != null)
+            Instantiate(_muzzleFlash, _attackPoint);
+
         _bulletsLeft--;
         _bulletsShot++;
+
+        yield return new WaitForSeconds(_timeBetweenShooting);
+
+        _isReadyToShoot = true;
     }
 
-    private IEnumerator Reload()
+    private IEnumerator ReloadRoutine()
     {
         _isReloading = true;
-        var newWaitForSeconds = new WaitForSeconds(_reloadTime);
 
-        yield return newWaitForSeconds;
+        yield return new WaitForSeconds(_reloadTime);
 
         _bulletsLeft = _magazineSize;
-
         _isReloading = false;
     }
 }
