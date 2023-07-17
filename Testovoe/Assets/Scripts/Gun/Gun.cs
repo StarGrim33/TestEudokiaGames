@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -22,8 +23,21 @@ public class Gun : MonoBehaviour
     private bool _isShooting;
     private bool _allowButtonHold = true;
 
+
+    private void OnDestroy()
+    {
+        StateManager.Instance.OnGameStateChange -= OnGameStateChange;
+    }
+
+    private void OnGameStateChange(GameState newGameState)
+    {
+        enabled = newGameState == GameState.Gameplay;
+    }
+
     private void Awake()
     {
+        StateManager.Instance.OnGameStateChange += OnGameStateChange;
+
         _bulletsLeft = _magazineSize;
         _isReadyToShoot = true;
     }
