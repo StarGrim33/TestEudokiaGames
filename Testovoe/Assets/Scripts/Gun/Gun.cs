@@ -5,14 +5,14 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
     [SerializeField] private GunBullet _bulletPrefab;
+    [SerializeField] private Transform _attackPoint;
+    [SerializeField] private ParticleSystem _muzzleFlash;
+    [SerializeField] private AudioSource _shotSound;
+    [SerializeField] private TMP_Text _muzzleText;
     [SerializeField] private float _shootForce;
     [SerializeField] private float _timeBetweenShooting;
     [SerializeField] private float _reloadTime;
     [SerializeField] private int _magazineSize;
-    [SerializeField] private Camera _camera;
-    [SerializeField] private Transform _attackPoint;
-    [SerializeField] private GameObject _muzzleFlash;
-    [SerializeField] private TMP_Text _muzzleText;
 
     private int _bulletsLeft;
     private int _bulletsShot;
@@ -30,24 +30,32 @@ public class Gun : MonoBehaviour
 
     private void Update()
     {
+        HandleShooting();
+        HandleReloading();
+        _muzzleText.text = _bulletsLeft.ToString();
+    }
+
+    private void HandleShooting()
+    {
         if (_allowButtonHold)
             _isShooting = Input.GetMouseButton(0);
         else
             _isShooting = Input.GetMouseButtonDown(0);
-
-        if (Input.GetKeyDown(KeyCode.R) && _bulletsLeft < _magazineSize && !_isReloading)
-            StartCoroutine(ReloadRoutine());
-
-        if (_isReadyToShoot && _isShooting && !_isReloading && _bulletsLeft <= 0)
-            StartCoroutine(ReloadRoutine());
 
         if (_isReadyToShoot && _isShooting && !_isReloading && _bulletsLeft > 0)
         {
             _bulletsShot = 0;
             StartCoroutine(Shooting());
         }
+    }
 
-        _muzzleText.text = _bulletsLeft.ToString();
+    private void HandleReloading()
+    {
+        if (Input.GetKeyDown(KeyCode.R) && _bulletsLeft < _magazineSize && !_isReloading)
+            StartCoroutine(ReloadRoutine());
+
+        if (_isReadyToShoot && _isShooting && !_isReloading && _bulletsLeft <= 0)
+            StartCoroutine(ReloadRoutine());
     }
 
     private IEnumerator Shooting()
@@ -56,6 +64,8 @@ public class Gun : MonoBehaviour
 
         var currentBullet = Instantiate(_bulletPrefab, _attackPoint.position, Quaternion.identity);
         currentBullet.GetComponent<Rigidbody>().AddForce(_attackPoint.forward * _shootForce, ForceMode.Impulse);
+
+        _shotSound.PlayOneShot(_shotSound.clip);
 
         if (_muzzleFlash != null)
             Instantiate(_muzzleFlash, _attackPoint);

@@ -11,9 +11,9 @@ public class GunBullet : MonoBehaviour
         StartCoroutine(LifeTime());
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if(other.TryGetComponent<IDamageable>(out IDamageable enemy))
+        if(collision.gameObject.TryGetComponent<IDamageable>(out IDamageable enemy))
         {
             enemy.ApplyDamage(_damage);
             Debug.Log(_damage);
