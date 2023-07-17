@@ -35,6 +35,9 @@ public class Spawner : MonoBehaviour
 
     private void Update()
     {
+        if(StateManager.Instance.CurrentGameState == GameState.Paused)
+            return;
+
         if (_currentWave == null)
             return;
 
