@@ -13842,7 +13842,7 @@ PrefabInstance:
     - target: {fileID: 7738944225844491195, guid: a897a9655ebd1da469879f70dd06635e, type: 3}
       propertyPath: _muzzleFlash
       value: 
-      objectReference: {fileID: 19834012, guid: 70c86803749c1ba46872b9f38746446e, type: 3}
+      objectReference: {fileID: 19813786, guid: 346f3bf3686d682498113714ee132099, type: 3}
     - target: {fileID: 7738944225844491195, guid: a897a9655ebd1da469879f70dd06635e, type: 3}
       propertyPath: _timeBetweenShooting
       value: 0.5

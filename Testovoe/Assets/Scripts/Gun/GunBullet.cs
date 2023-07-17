@@ -3,9 +3,12 @@ using UnityEngine;
 
 public class GunBullet : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem _criticalEffect;
+
     private float _lifeTime = 2f;
     private int _damage = 40;
-    private int _criticalChance = 20;
+    private float _criticalChance = 0.2f;
+    private int _criticalDamageMultiplier = 2;
 
     private void OnEnable()
     {
@@ -18,7 +21,8 @@ public class GunBullet : MonoBehaviour
         {
             if (CalculateCriticalChance())
             {
-                enemy.ApplyDamage(_damage * 2);
+                enemy.ApplyDamage(_damage * _criticalDamageMultiplier);
+                Instantiate(_criticalEffect, transform.position, Quaternion.identity);
                 Debug.Log(_damage);
             }
 
