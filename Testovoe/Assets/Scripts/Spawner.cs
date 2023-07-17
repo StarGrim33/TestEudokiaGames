@@ -11,11 +11,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] private EnemyPool _enemyPool;
     [SerializeField] private List<Wave> _waves;
 
-    public event UnityAction ReachedLastWave;
-    public event UnityAction WaveChanged;
     public event UnityAction AllEnemySpawned;
-
-    public int CurrentWave => _currentWaveIndex;
 
     private int _currentWaveIndex = 0;
     private Wave _currentWave;
@@ -72,14 +68,7 @@ public class Spawner : MonoBehaviour
 
         yield return delay;
 
-        if (_currentWaveIndex == _lastWaveNumber)
-        {
-            ReachedLastWave?.Invoke();
-            Debug.Log("Last wave");
-        }
-
         SetWave(++_currentWaveIndex);
-        WaveChanged?.Invoke();
         _spawned = 0;
     }
 
@@ -89,8 +78,6 @@ public class Spawner : MonoBehaviour
 
         enemy.transform.position = _spawnPoints[spawnPoint].position;
         enemy.transform.rotation = _spawnPoints[spawnPoint].rotation;
-        enemy.transform.SetParent(_spawnPoints[spawnPoint]);
-
         enemy.gameObject.SetActive(true);
         enemy.GetComponent<EnemyHealth>().Dying += OnEnemyDying;
     }

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1899344397156846346
+--- !u!1 &5540408942436684855
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,50 +8,42 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5224935204186516884}
-  - component: {fileID: 5309742075900207588}
+  - component: {fileID: 1144640292992318872}
+  - component: {fileID: 1004687149196953192}
   m_Layer: 0
-  m_Name: Spawner
+  m_Name: Wave1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5224935204186516884
+--- !u!4 &1144640292992318872
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1899344397156846346}
+  m_GameObject: {fileID: 5540408942436684855}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 553.26624, y: 573.93353, z: -18.152103}
+  m_LocalPosition: {x: 15.877969, y: -28.87318, z: 183.54411}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5309742075900207588
+--- !u!114 &1004687149196953192
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1899344397156846346}
+  m_GameObject: {fileID: 5540408942436684855}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d8b7896257fd2c4bbf99569342fdee5, type: 3}
+  m_Script: {fileID: 11500000, guid: 71f811851a13caf49aeb28f9dc861e64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  _delayBetweenWaves: 2
-  _enemyPool: {fileID: 0}
-  _waves:
-  - {fileID: 0}
+  _enemyPrefab: {fileID: 1774625739149480, guid: 26e2ccac2f5d64040a7f7a08588ecbaf, type: 3}
+  _spawnDelay: 2
+  _amount: 10
