@@ -12,6 +12,9 @@ public class PlayerMotor : MonoBehaviour
 
     private void Start()
     {
+        if(Time.timeScale == 0f)
+            Time.timeScale = 1f;
+
         _characterController = GetComponent<CharacterController>();
     }
 

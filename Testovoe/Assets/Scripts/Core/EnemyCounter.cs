@@ -4,11 +4,13 @@ using UnityEngine.Events;
 public class EnemyCounter : MonoBehaviour
 {
     [SerializeField] private GameObject _enemyContainer;
-    [SerializeField] private GameObject _loseScreen;
+    //[SerializeField] private GameObject _loseScreen;
 
     [SerializeField] private int _enemyAmount;
 
     public event UnityAction<int, int> EnemyCountChanged;
+
+    public event UnityAction MaxEnemyCountReached;
 
     public int MaxEnemyCount => _maxEnemyCount;
     public int EnemyAmount => _enemyAmount;
@@ -19,10 +21,8 @@ public class EnemyCounter : MonoBehaviour
     {
         CountEnemies();
 
-        if(_enemyAmount >= _maxEnemyCount)
-        {
-            ShowLoseScreen();
-        }
+        if (_enemyAmount >= _maxEnemyCount)
+            MaxEnemyCountReached?.Invoke();
     }
 
     private void CountEnemies()
@@ -42,11 +42,4 @@ public class EnemyCounter : MonoBehaviour
         }
     }
 
-    private void ShowLoseScreen()
-    {
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = true;
-        Time.timeScale = 0f;
-        _loseScreen.SetActive(true);
-    }
 }

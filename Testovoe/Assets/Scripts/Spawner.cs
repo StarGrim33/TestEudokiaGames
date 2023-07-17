@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +12,8 @@ public class Spawner : MonoBehaviour
 
     public event UnityAction AllEnemySpawned;
 
+    private List<int> _usedSpawnPoints;
+
     private int _currentWaveIndex = 0;
     private Wave _currentWave;
     private float _timeAfterLastSpawn;
@@ -22,6 +23,13 @@ public class Spawner : MonoBehaviour
 
     private void Start()
     {
+        _usedSpawnPoints = new List<int>();
+
+        for (int i = 0; i < _spawnPoints.Length; i++)
+        {
+            _usedSpawnPoints.Add(i);
+        }
+
         SetWave(_currentWaveIndex);
     }
 
@@ -32,11 +40,12 @@ public class Spawner : MonoBehaviour
 
         _timeAfterLastSpawn += Time.deltaTime;
 
-        if(_timeAfterLastSpawn >= _currentWave.SpawnDelay)
+        if (_timeAfterLastSpawn >= _currentWave.SpawnDelay)
         {
-            if(_currentSpawnPointIndex < _spawnPoints.Length - 1)
+            if (_currentSpawnPointIndex < _spawnPoints.Length - 1)
             {
                 _currentSpawnPointIndex++;
+                _usedSpawnPoints.Add(_currentSpawnPointIndex);
                 SpawnEnemy(_currentSpawnPointIndex);
                 _spawned++;
                 _timeAfterLastSpawn = 0;
@@ -74,6 +83,11 @@ public class Spawner : MonoBehaviour
 
     private void SpawnEnemy(int spawnPoint)
     {
+        int randomIndex = UnityEngine.Random.Range(0, _usedSpawnPoints.Count);
+        int spawnPointIndex = _usedSpawnPoints[randomIndex];
+
+        _usedSpawnPoints.RemoveAt(randomIndex);
+
         GameObject enemy = _enemyPool.GetObject(_currentWave.EnemyPrefab);
 
         enemy.transform.position = _spawnPoints[spawnPoint].position;
