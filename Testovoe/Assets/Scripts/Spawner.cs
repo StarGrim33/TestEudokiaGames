@@ -12,6 +12,8 @@ public class Spawner : MonoBehaviour
     [SerializeField] private EnemyPool _enemyPool;
     [SerializeField] private List<Wave> _waves;
 
+    public int CurrentWaveIndex => _currentWaveIndex;
+
     public event UnityAction AllEnemySpawned;
 
     private List<int> _unusedSpawnPoints;
@@ -79,6 +81,7 @@ public class Spawner : MonoBehaviour
             if (_waves.Count > _currentWaveIndex + 1)
             {
                 AllEnemySpawned?.Invoke();
+                //_currentWaveIndex++;
                 StartCoroutine(NextWave());
             }
 

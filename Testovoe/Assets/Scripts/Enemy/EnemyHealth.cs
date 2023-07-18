@@ -35,7 +35,6 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     {
         _deadEffectSpawner.SpawnDeadEffect();
         Dying?.Invoke(this);
-        Debug.Log(CurrentHealth);
         gameObject.SetActive(false);
     }
 

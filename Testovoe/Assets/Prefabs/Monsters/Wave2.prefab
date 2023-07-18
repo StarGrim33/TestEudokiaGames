@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5540408942436684855
+--- !u!1 &750444225771369834
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,42 +8,42 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1144640292992318872}
-  - component: {fileID: 1004687149196953192}
+  - component: {fileID: 3212968950994828712}
+  - component: {fileID: 331393121196157857}
   m_Layer: 0
-  m_Name: Wave1
+  m_Name: Wave2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1144640292992318872
+--- !u!4 &3212968950994828712
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5540408942436684855}
+  m_GameObject: {fileID: 750444225771369834}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.877969, y: -28.87318, z: 183.54411}
+  m_LocalPosition: {x: 521.0303, y: 749.5627, z: -98.43457}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1004687149196953192
+--- !u!114 &331393121196157857
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5540408942436684855}
+  m_GameObject: {fileID: 750444225771369834}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71f811851a13caf49aeb28f9dc861e64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyPrefab: {fileID: 1774625739149480, guid: 26e2ccac2f5d64040a7f7a08588ecbaf, type: 3}
-  _spawnDelay: 2
-  _amount: 2
+  _enemyPrefab: {fileID: 1919012471076396, guid: 92716c4e7ba545d46b5bd15fdaba1a9e, type: 3}
+  _spawnDelay: 1
+  _amount: 3
