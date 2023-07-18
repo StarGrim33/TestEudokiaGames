@@ -23,7 +23,7 @@ public class Gun : MonoBehaviour
     private bool _isReloading;
     private bool _isShooting;
     private bool _allowButtonHold = true;
-
+    private float _baseTimeBetweenShooting;
 
     private void OnDestroy()
     {
@@ -41,6 +41,7 @@ public class Gun : MonoBehaviour
 
         _bulletsLeft = _magazineSize;
         _isReadyToShoot = true;
+        _baseTimeBetweenShooting = _timeBetweenShooting;
     }
 
     private void Update()
@@ -48,6 +49,20 @@ public class Gun : MonoBehaviour
         HandleShooting();
         HandleReloading();
         _muzzleText.text = _bulletsLeft.ToString();
+    }
+
+    public void IncreaseFireRate(float value, float duration)
+    {
+        Debug.Log("Incresead");
+        _timeBetweenShooting = value;
+        StartCoroutine(FireRateSmooth(duration));
+    }
+
+    private IEnumerator FireRateSmooth(float duration)
+    {
+        var newWaitForSeconds = new WaitForSeconds(duration);
+        yield return newWaitForSeconds;
+        _timeBetweenShooting = _baseTimeBetweenShooting;
     }
 
     private void HandleShooting()

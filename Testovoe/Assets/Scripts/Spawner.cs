@@ -5,6 +5,8 @@ using UnityEngine.Events;
 
 public class Spawner : MonoBehaviour
 {
+    public static Spawner Instance { get; private set; }
+
     [SerializeField] private Transform[] _spawnPoints;
     [SerializeField] private float _delayBetweenWaves;
     [SerializeField] private EnemyPool _enemyPool;
@@ -20,6 +22,21 @@ public class Spawner : MonoBehaviour
     private int _spawned;
     private int _lastWaveNumber = 1;
     private int _currentSpawnPointIndex = 1;
+    private bool _isSpawnFrozen = false;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Debug.LogWarning("Multiple instances of Spawner found. Only one instance should exist.");
+            Destroy(gameObject);
+            return;
+        }
+    }
 
     private void Start()
     {
@@ -33,7 +50,7 @@ public class Spawner : MonoBehaviour
 
     private void Update()
     {
-        if (StateManager.Instance.CurrentGameState == GameState.Paused)
+        if (_isSpawnFrozen || StateManager.Instance.CurrentGameState == GameState.Paused)
             return;
 
         if (_currentWave == null)
@@ -71,6 +88,12 @@ public class Spawner : MonoBehaviour
         }
     }
 
+    public void FreezeSpawn(float duration)
+    {
+        _isSpawnFrozen = true;
+        StartCoroutine(UnfreezeSpawnAfterDelay(duration));
+    }
+
     public IEnumerator NextWave()
     {
         var delay = new WaitForSeconds(_delayBetweenWaves);
@@ -79,6 +102,14 @@ public class Spawner : MonoBehaviour
 
         SetWave(++_currentWaveIndex);
         _spawned = 0;
+    }
+
+    private IEnumerator UnfreezeSpawnAfterDelay(float duration)
+    {
+        var delay = new WaitForSeconds(duration);
+
+        yield return delay;
+        _isSpawnFrozen = false;
     }
 
     private void SpawnEnemy(int spawnPoint)

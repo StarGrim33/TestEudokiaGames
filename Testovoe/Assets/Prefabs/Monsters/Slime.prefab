@@ -157,6 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buffs: []
+  _spawner: {fileID: 5309742075900207588, guid: 2ddb80d5beb222146ae391bb8d8d3790, type: 3}
 --- !u!136 &5919247313525470447
 CapsuleCollider:
   m_ObjectHideFlags: 0
