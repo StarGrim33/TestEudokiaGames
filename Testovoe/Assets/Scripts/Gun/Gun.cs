@@ -37,11 +37,14 @@ public class Gun : MonoBehaviour
 
     private void Awake()
     {
-        StateManager.Instance.OnGameStateChange += OnGameStateChange;
-
         _bulletsLeft = _magazineSize;
         _isReadyToShoot = true;
         _baseTimeBetweenShooting = _timeBetweenShooting;
+    }
+
+    private void Start()
+    {
+        StateManager.Instance.OnGameStateChange += OnGameStateChange;
     }
 
     private void Update()

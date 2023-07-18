@@ -4,8 +4,6 @@ using UnityEngine.Events;
 public class EnemyCounter : MonoBehaviour
 {
     [SerializeField] private GameObject _enemyContainer;
-    //[SerializeField] private GameObject _loseScreen;
-
     [SerializeField] private int _enemyAmount;
 
     public event UnityAction<int, int> EnemyCountChanged;
@@ -13,6 +11,7 @@ public class EnemyCounter : MonoBehaviour
     public event UnityAction MaxEnemyCountReached;
 
     public int MaxEnemyCount => _maxEnemyCount;
+
     public int EnemyAmount => _enemyAmount;
 
     private int _maxEnemyCount = 10;
@@ -41,5 +40,4 @@ public class EnemyCounter : MonoBehaviour
             }
         }
     }
-
 }

@@ -1,16 +1,14 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class PowerUP : MonoBehaviour
+public class KillThemAll : MonoBehaviour
 {
-    [SerializeField] private Buffs _buffs;
-    [SerializeField] private Spawner _spawner;
+    [SerializeField] private EnemyKiller _enemyKiller;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.TryGetComponent<Player>(out Player player))
         {
-            _buffs.ApplyPowerUP(player.gameObject);
+            _enemyKiller.KillEnemies();
             Destroy(gameObject);
         }
     }
