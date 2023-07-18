@@ -10,8 +10,6 @@ public class PlayerMotor : MonoBehaviour
     private float _gravity = -9.8f;
     private float _jumpHeight = 1.5f;
 
-   
-
     private void Start()
     {
         if(Time.timeScale == 0f)

@@ -12,7 +12,7 @@ public class Spawner : MonoBehaviour
 
     public event UnityAction AllEnemySpawned;
 
-    private List<int> _usedSpawnPoints;
+    private List<int> _unusedSpawnPoints;
 
     private int _currentWaveIndex = 0;
     private Wave _currentWave;
@@ -23,19 +23,17 @@ public class Spawner : MonoBehaviour
 
     private void Start()
     {
-        _usedSpawnPoints = new List<int>();
+        _unusedSpawnPoints = new List<int>();
 
         for (int i = 0; i < _spawnPoints.Length; i++)
-        {
-            _usedSpawnPoints.Add(i);
-        }
+            _unusedSpawnPoints.Add(i);
 
         SetWave(_currentWaveIndex);
     }
 
     private void Update()
     {
-        if(StateManager.Instance.CurrentGameState == GameState.Paused)
+        if (StateManager.Instance.CurrentGameState == GameState.Paused)
             return;
 
         if (_currentWave == null)
@@ -48,7 +46,6 @@ public class Spawner : MonoBehaviour
             if (_currentSpawnPointIndex < _spawnPoints.Length - 1)
             {
                 _currentSpawnPointIndex++;
-                _usedSpawnPoints.Add(_currentSpawnPointIndex);
                 SpawnEnemy(_currentSpawnPointIndex);
                 _spawned++;
                 _timeAfterLastSpawn = 0;
@@ -86,15 +83,15 @@ public class Spawner : MonoBehaviour
 
     private void SpawnEnemy(int spawnPoint)
     {
-        int randomIndex = UnityEngine.Random.Range(0, _usedSpawnPoints.Count);
-        int spawnPointIndex = _usedSpawnPoints[randomIndex];
+        int randomIndex = UnityEngine.Random.Range(0, _unusedSpawnPoints.Count);
+        int spawnPointIndex = _unusedSpawnPoints[randomIndex];
 
-        _usedSpawnPoints.RemoveAt(randomIndex);
+        _unusedSpawnPoints.RemoveAt(randomIndex);
 
         GameObject enemy = _enemyPool.GetObject(_currentWave.EnemyPrefab);
 
-        enemy.transform.position = _spawnPoints[spawnPoint].position;
-        enemy.transform.rotation = _spawnPoints[spawnPoint].rotation;
+        enemy.transform.position = _spawnPoints[spawnPointIndex].position;
+        enemy.transform.rotation = _spawnPoints[spawnPointIndex].rotation;
         enemy.gameObject.SetActive(true);
         enemy.GetComponent<EnemyHealth>().Dying += OnEnemyDying;
     }

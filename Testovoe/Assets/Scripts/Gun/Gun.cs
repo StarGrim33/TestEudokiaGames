@@ -14,6 +14,7 @@ public class Gun : MonoBehaviour
     [SerializeField] private float _timeBetweenShooting;
     [SerializeField] private float _reloadTime;
     [SerializeField] private int _magazineSize;
+    [SerializeField] private WeaponShaker _weaponShaker;
 
     private int _bulletsLeft;
     private int _bulletsShot;
@@ -80,6 +81,7 @@ public class Gun : MonoBehaviour
         currentBullet.GetComponent<Rigidbody>().AddForce(_attackPoint.forward * _shootForce, ForceMode.Impulse);
 
         _shotSound.PlayOneShot(_shotSound.clip);
+        _weaponShaker.DoShake();
 
         if (_muzzleFlash != null)
             Instantiate(_muzzleFlash, _attackPoint);
