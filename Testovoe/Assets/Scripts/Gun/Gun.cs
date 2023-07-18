@@ -56,9 +56,20 @@ public class Gun : MonoBehaviour
 
     public void IncreaseFireRate(float value, float duration)
     {
+        if(value <= 0 || duration <= 0)
+            throw new ArgumentOutOfRangeException(nameof(value));
+
         Debug.Log("Incresead");
         _timeBetweenShooting = value;
         StartCoroutine(FireRateSmooth(duration));
+    }
+
+    public void UpgradeFireRate(float value)
+    {
+        if (value <= 0)
+            throw new ArgumentOutOfRangeException(nameof(value));
+
+        _timeBetweenShooting -= value;
     }
 
     private IEnumerator FireRateSmooth(float duration)

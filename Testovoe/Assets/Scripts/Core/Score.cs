@@ -9,16 +9,9 @@ public class Score : MonoBehaviour
 
     public event UnityAction<int> BestWaveChanged;
 
-    public int CurrentWave => _currentWave;
-
-    public int BestWave => _bestWave;
-
-    private int _currentWave = 0;
-    private int _bestWave = 0;
-
     private void Awake()
     {
-        _bestWave = PlayerPrefs.GetInt(Constants.BestWave, 0);
+        PlayerData.BestWave = PlayerPrefs.GetInt(Constants.BestWave, 0);
     }
 
     private void OnEnable()
@@ -32,15 +25,15 @@ public class Score : MonoBehaviour
 
     private void OnAllEnemySpawned()
     {
-        _currentWave++;
+        PlayerData.CurrentWave++;
 
-        if (_currentWave > _bestWave)
+        if (PlayerData.CurrentWave > PlayerData.BestWave)
         {
-            _bestWave = _currentWave;
-            PlayerPrefs.SetInt(Constants.BestWave, _bestWave);
-            BestWaveChanged?.Invoke(_bestWave);
+            PlayerData.BestWave = PlayerData.CurrentWave;
+            PlayerPrefs.SetInt(Constants.BestWave, PlayerData.BestWave);
+            BestWaveChanged?.Invoke(PlayerData.BestWave);
         }
 
-        CurrentScoreChanged?.Invoke(_currentWave);
+        CurrentScoreChanged?.Invoke(PlayerData.CurrentWave);
     }
 }

@@ -147,3 +147,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _criticalEffect: {fileID: 19816428, guid: ea6edc3a0a047a243a9ec62ca1655977, type: 3}
+  _damage: 40

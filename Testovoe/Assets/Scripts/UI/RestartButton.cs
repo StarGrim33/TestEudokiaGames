@@ -6,6 +6,7 @@ public class RestartButton : MonoBehaviour
     public void Restart()
     {
         var sceneIndex = SceneManager.GetActiveScene().buildIndex;
+        PlayerData.CurrentWave = 0;
         SceneManager.LoadScene(sceneIndex);
     }
 

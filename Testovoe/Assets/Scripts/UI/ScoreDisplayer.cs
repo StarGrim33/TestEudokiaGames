@@ -31,7 +31,7 @@ public class ScoreDisplayer : MonoBehaviour
 
     private void Start()
     {
-        _currentScore.text = $"Текущая волна: {_score.CurrentWave}".ToString();
-        _bestScore.text = $"Лучшая волна: {_score.BestWave}".ToString();
+        _currentScore.text = $"Текущая волна: {PlayerData.CurrentWave}".ToString();
+        _bestScore.text = $"Лучшая волна: {PlayerData.BestWave}".ToString();
     }
 }
