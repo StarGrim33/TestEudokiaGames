@@ -121,6 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74b3823269f8cf34098da72f3f047d2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _player: {fileID: 0}
 --- !u!114 &-8526975011398057422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,8 +157,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfb076df7b295dd44841584890361d45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buffs: []
-  _spawner: {fileID: 5309742075900207588, guid: 2ddb80d5beb222146ae391bb8d8d3790, type: 3}
+  _buffs:
+  - {fileID: 5815549772603925897, guid: 0ba7054122a54ed40b38c54eda0b17cb, type: 3}
+  - {fileID: 2090552291236062414, guid: 0ac30edcf07ddf043bbd859f5c7b7546, type: 3}
+  - {fileID: 4252679826210382078, guid: b0c4a6d3b00f57a489f2b2e55153dd33, type: 3}
 --- !u!136 &5919247313525470447
 CapsuleCollider:
   m_ObjectHideFlags: 0

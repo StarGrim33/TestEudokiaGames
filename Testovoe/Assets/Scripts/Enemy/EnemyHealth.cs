@@ -34,6 +34,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     public void Die()
     {
         _deadEffectSpawner.SpawnDeadEffect();
+        _buffSpawner.SpawnBuff();
         Dying?.Invoke(this);
         gameObject.SetActive(false);
     }

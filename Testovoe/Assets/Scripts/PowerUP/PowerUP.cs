@@ -1,10 +1,17 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using Zenject;
 
 public class PowerUP : MonoBehaviour
 {
     [SerializeField] private Buffs _buffs;
     [SerializeField] private Spawner _spawner;
+
+    [Inject]
+    public void Construct(Spawner spawner)
+    {
+        _spawner = spawner;
+    }
 
     private void OnTriggerEnter(Collider other)
     {

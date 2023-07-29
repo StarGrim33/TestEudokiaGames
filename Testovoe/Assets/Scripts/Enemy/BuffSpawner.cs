@@ -1,8 +1,10 @@
 using UnityEngine;
+using Zenject;
 
 public class BuffSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject[] _buffs;
+    [Inject] private DiContainer _containerPrefab;
 
     public void CalculateSpawnBuffProbability()
     {
@@ -17,6 +19,7 @@ public class BuffSpawner : MonoBehaviour
     public void SpawnBuff()
     {
         var randomBuff = Random.Range(0, _buffs.Length - 1);
-        Instantiate(_buffs[randomBuff], transform.position, Quaternion.identity);
+        var obj = _containerPrefab.InstantiatePrefab(_buffs[randomBuff], transform.position, Quaternion.identity, null);
+        //Instantiate(_buffs[randomBuff], transform.position, Quaternion.identity);
     }
 }

@@ -605,6 +605,7 @@ GameObject:
   - component: {fileID: 93763337}
   - component: {fileID: 93763338}
   - component: {fileID: 93763339}
+  - component: {fileID: 93763340}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -644,6 +645,7 @@ MonoBehaviour:
   - {fileID: 93763337}
   - {fileID: 93763338}
   - {fileID: 93763339}
+  - {fileID: 93763340}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -716,6 +718,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _slider: {fileID: 265182815}
   _enemyCounter: {fileID: 86076583}
+--- !u!114 &93763340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 93763333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e02b7c96a66bbb4fa14750514df2d12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &105566109 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2381777822030890585, guid: a0a878f902f347242a034838ad481be3, type: 3}
@@ -15710,7 +15724,8 @@ PrefabInstance:
       propertyPath: _timeBetweenShooting
       value: 0.7
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8783490375646949459, guid: a897a9655ebd1da469879f70dd06635e, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:

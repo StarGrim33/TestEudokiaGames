@@ -471,6 +471,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74b3823269f8cf34098da72f3f047d2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _player: {fileID: 0}
 --- !u!114 &2449544552763369924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -509,6 +510,7 @@ MonoBehaviour:
   _buffs:
   - {fileID: 5815549772603925897, guid: 0ba7054122a54ed40b38c54eda0b17cb, type: 3}
   - {fileID: 4252679826210382078, guid: b0c4a6d3b00f57a489f2b2e55153dd33, type: 3}
+  - {fileID: 2090552291236062414, guid: 0ac30edcf07ddf043bbd859f5c7b7546, type: 3}
 --- !u!136 &272767115938393936
 CapsuleCollider:
   m_ObjectHideFlags: 0
