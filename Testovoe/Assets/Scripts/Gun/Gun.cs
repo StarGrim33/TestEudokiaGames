@@ -2,19 +2,21 @@ using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using Zenject;
 
 public class Gun : MonoBehaviour
 {
     [SerializeField] private GunBullet _bulletPrefab;
     [SerializeField] private Transform _attackPoint;
     [SerializeField] private ParticleSystem _muzzleFlash;
-    [SerializeField] private AudioSource _shotSound;
-    [SerializeField] private TMP_Text _muzzleText;
     [SerializeField] private float _shootForce;
     [SerializeField] private float _timeBetweenShooting;
     [SerializeField] private float _reloadTime;
     [SerializeField] private int _magazineSize;
     [SerializeField] private WeaponShaker _weaponShaker;
+    [SerializeField] private AudioSource _shotSound;
+
+    public int BulletsLeft => _bulletsLeft;
 
     private int _bulletsLeft;
     private int _bulletsShot;
@@ -35,6 +37,12 @@ public class Gun : MonoBehaviour
         enabled = newGameState == GameState.Gameplay;
     }
 
+    [Inject]
+    public void Construct(AudioSource shotSound)
+    {
+        _shotSound = shotSound;
+    }
+
     private void Awake()
     {
         _bulletsLeft = _magazineSize;
@@ -51,7 +59,6 @@ public class Gun : MonoBehaviour
     {
         HandleShooting();
         HandleReloading();
-        _muzzleText.text = _bulletsLeft.ToString();
     }
 
     public void IncreaseFireRate(float value, float duration)

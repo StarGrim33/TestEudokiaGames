@@ -1,6 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class EnemyPool : MonoBehaviour
 {
@@ -16,6 +16,8 @@ public class EnemyPool : MonoBehaviour
 
     [SerializeField] private GameObject _container;
 
+    [Inject] private DiContainer _containerPrefab;
+
     private void Awake()
     {
         EnemyPoolInstance = this;
@@ -27,7 +29,7 @@ public class EnemyPool : MonoBehaviour
     {
         for (int i = 0; i < count; i++)
         {
-            var obj = Instantiate(prefab, parent);
+            var obj = _containerPrefab.InstantiatePrefab(prefab, parent.position,Quaternion.identity, _container.transform);
             obj.gameObject.SetActive(false);
             list.Add(obj);
         }

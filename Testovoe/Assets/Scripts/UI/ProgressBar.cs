@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class ProgressBar : MonoBehaviour
 {
@@ -11,6 +12,13 @@ public class ProgressBar : MonoBehaviour
     {
         _enemyCounter.EnemyCountChanged += OnEnemyCountChanged;
         _slider.value = 0;
+    }
+
+    [Inject]
+    public void Construct(Slider slider, EnemyCounter enemyCounter)
+    {
+        _slider = slider;
+        _enemyCounter = enemyCounter;
     }
 
     private void OnEnemyCountChanged(int value, int maxValue)
